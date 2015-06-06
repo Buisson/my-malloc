@@ -116,15 +116,29 @@ void myfree(void *ptr) {
 }
 
 void *mycalloc(size_t nmemb, size_t size) {
-  nb_alloc += 1;
-  return calloc(nmemb, size);
+	nb_alloc += 1;
+
+	return calloc(nmemb, size);
 }
 
-void *myrealloc(void *ptr, size_t size) {
-  /* il faudrait probablement changer les valeur de nballoc et
-   * nb_dealloc dans une véritable implémentation 
-   */
-  return realloc(ptr, size);
+void * realloc (void * ptr, size_t size) {
+	char * p;
+	if (ptr == NULL){ //Si le premier argument est null :
+		return mymalloc (size);
+	}
+
+	if (size == 0) { //Si le second argument est null :
+		myfree (ptr);
+		return NULL;
+	}
+
+	p = mymalloc (size);
+	if (p == NULL) {
+		return NULL;
+	}
+	memcpy (p, ptr, size); //les données originales seront copiées.
+	myfree (ptr);
+	return p;
 }
 
 #ifdef MALLOC_DBG
