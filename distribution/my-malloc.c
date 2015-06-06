@@ -121,7 +121,7 @@ void *mycalloc(size_t nmemb, size_t size) {
 	return calloc(nmemb, size);
 }
 
-void * realloc (void * ptr, size_t size) {
+void * myrealloc (void * ptr, size_t size) {
 	char * p;
 	if (ptr == NULL){ //Si le premier argument est null :
 		return mymalloc (size);
