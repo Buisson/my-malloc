@@ -116,9 +116,19 @@ void myfree(void *ptr) {
 }
 
 void *mycalloc(size_t nmemb, size_t size) {
-	nb_alloc += 1;
+	void	*ptr;
+	if (!(ptr = mymalloc(nmemb * size)))
+		return (NULL);
 
-	return calloc(nmemb, size);
+	char	*tmp;
+	int	i;
+	tmp = ptr;
+	i = 0;
+	while (i < nmemb * size)
+		tmp[i++] = 0;
+
+	ptr = tmp;
+	return (ptr);
 }
 
 void * myrealloc (void * ptr, size_t size) {
