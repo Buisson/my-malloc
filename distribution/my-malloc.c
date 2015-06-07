@@ -122,7 +122,7 @@ void *mycalloc(size_t nmemb, size_t size) {
 }
 
 void * myrealloc (void * ptr, size_t size) {
-	char * p;
+	void * p;
 	if (ptr == NULL){ //Si le premier argument est null :
 		return mymalloc (size);
 	}
@@ -136,7 +136,14 @@ void * myrealloc (void * ptr, size_t size) {
 	if (p == NULL) {
 		return NULL;
 	}
-	memcpy (p, ptr, size); //les données originales seront copiées.
+
+	char *dest = (char*)&p;
+   	char *sour = (char*)&ptr;
+   	int c;
+ 
+   	for(c=0;c<size;c++)
+    	*dest++ = *sour++; //les données originales seront copiée sur ptr.
+
 	myfree (ptr);
 	return p;
 }
