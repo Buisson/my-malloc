@@ -39,7 +39,7 @@ void *mymalloc(size_t size) {
 	Header *ptr_prec = &sentinelle;
 
 	while((ptr=ptr->info.ptr)!=&sentinelle){		
-		printf("Liste ptr size: %d\n",ptr->info.size);
+		//printf("Liste ptr size: %d\n",ptr->info.size);
 		ptr_prec=ptr;
 		if(ptr->info.size >= (size+BLOCK_SIZE))
 			break;		

@@ -78,6 +78,12 @@ int main(int argc, char *argv[]) {
   do_alloc_free(n, szmax);
   mymalloc_infos("END");
 
+  printf("\n\n###ICI TEST CALLOC ###\n\n");
+  printf("lancement de mycalloc(40,20);\n\n");
+  char* test = mycalloc(40,20);
+	printf("ICI : %d\n",test[5]);
+
+
   printf("\n\n###ICI TEST REALLOC ###\n\n");
   printf("lancement de myrealloc(mymalloc(50),50);\n\n");
   myrealloc(mymalloc(50),50);
