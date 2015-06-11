@@ -1,0 +1,8 @@
+Rendu du TD7 : malloc
+
+Par Aurélien Colombet et Nicolas Meurgues.
+
+Commentaires:
+-Apparement il y a un problème sur le realloc des moments il part en segfault nous avons essayé de debug cette partie mais impossible de voir ou est le problème.
+
+-Apparement il y aurai aussi un problème sur l'alignement qui ne fonctionne pas. Il doit y avoir un bug quelques part dans le malloc que nous n'arrivons pas à trouver. Ce bug est peut être la cause du problème sur realloc.

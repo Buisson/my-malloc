@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
   printf("\n\n###ICI TEST CALLOC ###\n\n");
   printf("lancement de mycalloc(40,20);\n\n");
   char* test = mycalloc(40,20);
-	printf("ICI : %d\n",test[5]);
+  printf("ici test de se que contient une case de la mémoire allouée : %d\n",test[5]);
 
 
   printf("\n\n###ICI TEST REALLOC ###\n\n");

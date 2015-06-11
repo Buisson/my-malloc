@@ -14,9 +14,9 @@ typedef union header {// Header de bloc
 } Header;
 
 
-/* Une version de my-malloc.c qu'il faudra vite remplacer par quelque chose de
- * plus "raisonnable". Ce code n'est juste là que pour pouvoir lancer
- * les programmes de test.
+/* Une version de my-malloc.c 
+ * author : Aurelien Colombet && Nicolas Meurgues.
+ * 
  */
 static int nb_alloc   = 0;		/* Nombre de fois où on alloué     */
 static int nb_dealloc = 0;		/* Nombre de fois où on désalloué  */
@@ -39,7 +39,7 @@ void *mymalloc(size_t size) {
 	Header *ptr_prec = &sentinelle;
 
 	while((ptr=ptr->info.ptr)!=&sentinelle){		
-		printf("Liste ptr size: %d\n",ptr->info.size);
+		//printf("Liste ptr size: %d\n",ptr->info.size);
 		ptr_prec=ptr;
 		if(ptr->info.size >= (size+BLOCK_SIZE))
 			break;		
@@ -89,8 +89,8 @@ void *mymalloc(size_t size) {
 	ptr_prec->info.ptr=nextBloc;
 	bloc->info.ptr=nextBloc;
 	sentinelle.info.ptr=nextBloc;
-	printf("size du bloc retourne %d\n\n",bloc->info.size);
-	printf("returned : %d\n\n",bloc);		
+	//printf("size du bloc retourne %d\n\n",bloc->info.size);
+	//printf("returned : %d\n\n",bloc);		
 	return bloc+1;//on renvois le pointeur sur la zone mémoire donc le +1 est pour la taille du header
 }
 
@@ -98,7 +98,7 @@ void *mymalloc(size_t size) {
 void myfree(void *ptr) {
   	nb_dealloc += 1;
   	//free(ptr);
-	printf("Free de %d\n",ptr);
+	//printf("Free de %d\n",ptr);
 	Header* pointeur = ptr;
 	pointeur = pointeur-1;
 	//printf("LE POINTEUR %d : %d\n",pointeur,pointeur->info.size);
@@ -108,7 +108,6 @@ void myfree(void *ptr) {
 	while((ptr_courant=ptr_courant->info.ptr)>pointeur){
 		ptr_prec=ptr_courant;//On sauvegarde le bloc libre précedent.
 	}
-	//TODO check si le bloc avant ou après n'est pas collé et ne peux pas etre fusionne.
 	/*On link le nouveau bloc libéré.*/
 	pointeur->info.ptr=ptr_courant;
 	ptr_prec->info.ptr=pointeur;
@@ -165,7 +164,12 @@ void mymalloc_infos(char *msg) {
   fprintf(stderr, "# allocs = %3d - # deallocs = %3d - # sbrk = %3d\n",
 	  nb_alloc, nb_dealloc, nb_sbrk);
   /* Ca pourrait être pas mal d'afficher ici les blocs dans la liste libre */
-
+  if(sentinelle.info.ptr!=NULL){
+	  Header *ptr = &sentinelle;
+	  while((ptr=ptr->info.ptr)!=&sentinelle){
+		printf("\tBloc @ %p (size = %d , next : %p)\n",ptr->info.ptr,ptr->info.size,ptr->info.ptr);
+	  }
+  }
   if (msg) fprintf(stderr, "**********\n\n");
 }
 #endif
